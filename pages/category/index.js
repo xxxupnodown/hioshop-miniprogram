@@ -9,7 +9,21 @@ Page({
         goodsCount: 0,
         nowIndex: 0,
         nowId: 0,
-        list: [],
+        list: [{
+          list_pic_url: 'xxx',
+          is_new: true,
+          goods_number: 0,
+          name: 'xxxx',
+          goods_brief: 'dawdwa',
+          min_retail_price: '123'
+        },{
+          list_pic_url: 'xxx',
+          is_new: false,
+          goods_number: 2,
+          name: 'xxxx',
+          goods_brief: 'dawdwa',
+          min_retail_price: '123'
+        }],
         allPage: 1,
         allCount: 0,
         size: 8,
@@ -40,11 +54,11 @@ Page({
     getCatalog: function() {
         //CatalogList
         let that = this;
-        util.request(api.CatalogList).then(function(res) {
-            that.setData({
-                navList: res.data.categoryList,
-            });
-        });
+        // util.request(api.CatalogList).then(function(res) {
+        //     that.setData({
+        //         navList: res.data.categoryList,
+        //     });
+        // });
         util.request(api.GoodsCount).then(function(res) {
             that.setData({
                 goodsCount: res.data.goodsCount
@@ -59,31 +73,6 @@ Page({
             that.setData({
                 currentCategory: res.data
             });
-        });
-    },
-    getCurrentList: function(id) {
-        let that = this;
-        util.request(api.GetCurrentList, {
-            size: that.data.size,
-            page: that.data.allPage,
-            id: id
-        }, 'POST').then(function(res) {
-            if (res.errno === 0) {
-                let count = res.data.count;
-                that.setData({
-                    allCount: count,
-                    allPage: res.data.currentPage,
-                    list: that.data.list.concat(res.data.data),
-                    showNoMore: 1,
-                    loading: 0,
-                });
-                if (count == 0) {
-                    that.setData({
-                        hasInfo: 0,
-                        showNoMore: 0
-                    });
-                }
-            }
         });
     },
     onShow: function() {
@@ -101,7 +90,6 @@ Page({
                 size: 8,
                 loading: 1
             })
-            this.getCurrentList(0);
             this.setData({
                 nowId: 0,
                 currentCategory: {}
@@ -115,7 +103,6 @@ Page({
                 size: 8,
                 loading: 1
             })
-            this.getCurrentList(nowId);
             this.getCurrentCategory(nowId);
             this.setData({
                 nowId: nowId
@@ -139,13 +126,11 @@ Page({
                 loading: 1
             })
             if (id == 0) {
-                this.getCurrentList(0);
                 this.setData({
                     currentCategory: {}
                 })
             } else {
                 wx.setStorageSync('categoryId', id)
-                this.getCurrentList(id);
                 this.getCurrentCategory(id);
             }
             wx.setStorageSync('categoryId', id)
@@ -165,11 +150,5 @@ Page({
         that.setData({
             allPage: that.data.allPage + 1
         });
-        let nowId = that.data.nowId;
-        if (nowId == 0 || nowId == undefined) {
-            that.getCurrentList(0);
-        } else {
-            that.getCurrentList(nowId);
-        }
     }
 })
