@@ -1,5 +1,19 @@
-<!--pages/express/express.wxml-->
-<view>
-  
+<view class="express-container">
+  <view class="express-top">
+    <view class="express-address sender">
+      <view class="express-address-title">
+        <title>添加寄件人</title>
+        <view class="express-phone">phone</view>
+      </view>
+      <view class="detail-address">xxxxxxx</view>
+    </view>
+    <view class="fenge"></view>
+    <view class="express-address getter">
+      <view class="express-address-title">
+        <title>添加寄件人</title>
+        <view class="express-phone">phone</view>
+      </view>
+      <view class="detail-address">xxxxxxx</view>
+    </view>
+  </view>
 </view>
-<text>pages/express/express.wxml</text>

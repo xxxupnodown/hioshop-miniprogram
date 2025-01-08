@@ -29,7 +29,7 @@ Page({
         size: 8,
         hasInfo: 0,
         showNoMore: 0,
-        loading:0,
+        loading: 0,
         index_banner_img:0,
     },
     onLoad: function(options) {
@@ -103,7 +103,7 @@ Page({
                 size: 8,
                 loading: 1
             })
-            this.getCurrentCategory(nowId);
+            // this.getCurrentCategory(nowId);
             this.setData({
                 nowId: nowId
             })
@@ -131,7 +131,7 @@ Page({
                 })
             } else {
                 wx.setStorageSync('categoryId', id)
-                this.getCurrentCategory(id);
+                // this.getCurrentCategory(id);
             }
             wx.setStorageSync('categoryId', id)
             this.setData({
